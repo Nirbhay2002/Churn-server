@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import numpy as np
-from sklearn.discriminant_analysis import StandardScaler
 
 app = Flask(__name__)
 CORS(app)
@@ -46,17 +45,10 @@ def preprocess_data(data):
     contract = contract_mapping[data['contract']]
 
     processed_data = np.array([age,contract, delay, frequency, gender, interaction, spend, subscription, support, tenure])
-    # sc = StandardScaler()
-    # processed_data = sc.fit_transform(processed_data)
+
     print(processed_data)
 
     return processed_data
-
-
-# def predict_churn(input_data):
-#     # Assuming 'model' is your trained machine learning model
-#     prediction = model.predict(input_data.reshape(1, -1))
-#     return prediction[0]
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
